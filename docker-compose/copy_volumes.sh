@@ -19,13 +19,16 @@ for service in "${services[@]}"; do
   service_volume_path="./$service/volumes"
   target_volume_path="$VOLUME_BASE_PATH/$service"
 
+  # Ensure target service directory exists
+  mkdir -p "$target_volume_path"
+  echo "Created directory for $service at $target_volume_path"
+
   # Copy the volume files if they exist
   if [ -d "$service_volume_path" ]; then
     echo "Copying $service_volume_path to $target_volume_path"
-    mkdir -p "$target_volume_path"
     cp -r "$service_volume_path/"* "$target_volume_path/"
   else
-    echo "Volume directory for $service not found. Skipping."
+    echo "Volume directory for $service not found. Skipping file copy."
   fi
 done
 
