@@ -1,0 +1,16 @@
+---
+services:
+  app:
+    image: "portainer/portainer-ce:latest"
+    container_name: portainer
+    ports:
+      - 30011:9000
+      - 9443:9443
+      - 8010:8000
+    volumes:
+      - /run/docker.sock:/var/run/docker.sock
+      - ${VOLUME_BASE_PATH}/portainer:/data
+    restart: unless-stopped
+volumes:
+  portainer-data:
+    driver: local
