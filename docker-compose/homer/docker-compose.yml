@@ -3,6 +3,7 @@ services:
   homer:
     image: "b4bz/homer:latest"
     container_name: homer
+    pull_policy: always
     ports:
       - "30010:8080"
     volumes:

@@ -3,6 +3,7 @@ services:
   app:
     image: "portainer/portainer-ce:latest"
     container_name: portainer
+    pull_policy: always
     ports:
       - 30011:9000
       - 9443:9443

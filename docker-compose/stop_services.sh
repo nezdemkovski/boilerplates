@@ -15,7 +15,7 @@ if [ -z "$VOLUME_BASE_PATH" ]; then
 fi
 
 # Define a list of services
-services=("portainer" "homer" "factorio-server-manager") # Add the names of all services here
+services=("portainer" "homer" "factorio-server-manager" "ollama-open-webui")
 
 # Loop through each service
 for service in "${services[@]}"; do

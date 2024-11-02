@@ -1,0 +1,37 @@
+---
+services:
+  ollama:
+    image: ollama/ollama:rocm
+    container_name: ollama
+    volumes:
+      - ${VOLUME_BASE_PATH}/ollama:/root/.ollama
+    pull_policy: always
+    tty: true
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    build:
+      context: .
+      args:
+        OLLAMA_BASE_URL: '/ollama'
+      dockerfile: Dockerfile
+    depends_on:
+      - ollama
+    ports:
+      - 30025:8080
+    environment:
+      - 'OLLAMA_BASE_URL=http://ollama:11434'
+      - 'WEBUI_SECRET_KEY='
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${VOLUME_BASE_PATH}/open-webui:/app/backend/data
+    restart: unless-stopped
+
+volumes:
+  ollama:
+  open-webui:
