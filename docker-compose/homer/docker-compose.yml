@@ -6,8 +6,21 @@ services:
     pull_policy: always
     ports:
       - "30010:8080"
+    networks:
+      - proxy
     volumes:
       - ${VOLUME_BASE_PATH}/homer/assets/:/www/assets
     environment:
       - INIT_ASSETS=1
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.homer.rule=Host(`nezdemkovski.cloud`) && PathPrefix(`/`)
+      - traefik.http.routers.homer.entrypoints=websecure
+      - traefik.http.routers.homer.service=homer
+      - traefik.http.routers.homer.tls=true
+      - traefik.http.routers.homer.tls.certresolver=cloudflare
+      - traefik.http.services.homer.loadbalancer.server.port=8080
+networks:
+  proxy:
+    external: true

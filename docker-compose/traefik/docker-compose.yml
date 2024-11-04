@@ -1,0 +1,22 @@
+---
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    networks:
+      - proxy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /run/docker.sock:/run/docker.sock:ro
+      - ${VOLUME_BASE_PATH}/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ${VOLUME_BASE_PATH}/traefik/conf.d/:/etc/traefik/conf.d/:ro
+      - ${VOLUME_BASE_PATH}/traefik/data/certs/:/var/traefik/certs/:rw
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN} # When using Cloudflare as Cert Resolver
+networks:
+  proxy:
+    external: true

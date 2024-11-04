@@ -8,10 +8,23 @@ services:
       - 30011:9000
       - 9443:9443
       - 8010:8000
+    networks:
+      - proxy
     volumes:
       - /run/docker.sock:/var/run/docker.sock
       - ${VOLUME_BASE_PATH}/portainer:/data
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portainer.rule=Host(`portainer.nezdemkovski.cloud`) && PathPrefix(`/`)
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.service=portainer
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.routers.portainer.tls.certresolver=cloudflare
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
 volumes:
   portainer-data:
     driver: local
+networks:
+  proxy:
+    external: true

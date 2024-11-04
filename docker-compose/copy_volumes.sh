@@ -18,7 +18,7 @@ fi
 mkdir -p "$VOLUME_BASE_PATH"
 
 # Define a list of services and copy their volumes
-services=("portainer" "homer" "factorio-server-manager")
+services=("portainer" "homer" "traefik")
 
 for service in "${services[@]}"; do
   service_volume_path="./$service/volumes"

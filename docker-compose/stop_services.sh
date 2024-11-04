@@ -15,7 +15,7 @@ if [ -z "$VOLUME_BASE_PATH" ]; then
 fi
 
 # Define a list of services
-services=("portainer" "homer" "factorio-server-manager" "ollama-open-webui")
+services=("portainer" "homer" "ollama-open-webui" "traefik")
 
 # Loop through each service
 for service in "${services[@]}"; do
@@ -25,7 +25,7 @@ for service in "${services[@]}"; do
   if [ -f "$compose_file" ]; then
     echo "Stopping Docker Compose for $service with VOLUME_BASE_PATH=$VOLUME_BASE_PATH"
     # Export VOLUME_BASE_PATH so it's available to docker-compose
-    VOLUME_BASE_PATH="$VOLUME_BASE_PATH" docker compose -f "$compose_file" down
+    VOLUME_BASE_PATH="$VOLUME_BASE_PATH" docker-compose -f "$compose_file" down
   else
     echo "docker-compose.yml for $service not found. Skipping."
   fi

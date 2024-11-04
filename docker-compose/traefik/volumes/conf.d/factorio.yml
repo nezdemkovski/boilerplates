@@ -1,0 +1,14 @@
+http:
+  routers:
+    factorio:
+      rule: "Host(`factorio.nezdemkovski.cloud`) && PathPrefix(`/`)"
+      service: factorio
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cloudflare
+  services:
+    factorio:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.205:8888"
