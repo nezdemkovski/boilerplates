@@ -1,0 +1,24 @@
+---
+services:
+  uptime-kuma:
+    image: "louislam/uptime-kuma:1"
+    container_name: uptime-kuma
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - 30015:3001
+    networks:
+      - proxy
+    volumes:
+      - ${VOLUME_BASE_PATH}/uptime-kuma:/app/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.uptime-kuma.rule=Host(`uptime-kuma.nezdemkovski.cloud`) && PathPrefix(`/`)
+      - traefik.http.routers.uptime-kuma.entrypoints=websecure
+      - traefik.http.routers.uptime-kuma.service=uptime-kuma
+      - traefik.http.routers.uptime-kuma.tls=true
+      - traefik.http.routers.uptime-kuma.tls.certresolver=cloudflare
+      - traefik.http.services.uptime-kuma.loadbalancer.server.port=3001
+networks:
+  proxy:
+    external: true

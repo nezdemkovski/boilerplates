@@ -3,9 +3,9 @@ services:
   ollama:
     image: ollama/ollama:rocm
     container_name: ollama
+    pull_policy: always
     volumes:
       - ${VOLUME_BASE_PATH}/ollama:/root/.ollama
-    pull_policy: always
     tty: true
     restart: unless-stopped
     ports:
@@ -14,6 +14,7 @@ services:
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
+    pull_policy: always
     networks:
       - proxy
     build:

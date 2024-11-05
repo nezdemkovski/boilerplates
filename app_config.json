@@ -27,6 +27,10 @@
       "folder": "docker-compose/factorio-server-manager",
       "variables": {}
     },
+    "uptime-kuma": {
+      "folder": "docker-compose/uptime-kuma",
+      "variables": {}
+    },
     "n8n": {
       "folder": "docker-compose/n8n",
       "variables": {

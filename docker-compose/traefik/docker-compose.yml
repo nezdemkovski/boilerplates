@@ -3,6 +3,7 @@ services:
   traefik:
     image: traefik:latest
     container_name: traefik
+    pull_policy: always
     restart: always
     networks:
       - proxy
