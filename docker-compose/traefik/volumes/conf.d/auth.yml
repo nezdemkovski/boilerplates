@@ -1,0 +1,26 @@
+http:
+  routers:
+    dashboard-local:
+      rule: "Host(`traefik.home.lab`)"
+      entryPoints:
+        - websecure
+      service: api@internal
+      middlewares:
+        - auth
+      tls:
+        certResolver: cloudflare
+
+    dashboard-external:
+      rule: "Host(`traefik.nezdemkovski.cloud`)"
+      entryPoints:
+        - websecure
+      service: api@internal
+      middlewares:
+        - auth
+      tls:
+        certResolver: cloudflare
+  middlewares:
+    auth:
+      basicAuth:
+        users:
+          - "yuri:$apr1$r8K8iU80$G7sgwxYbnVa/ci.OlKAOA1"

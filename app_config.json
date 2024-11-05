@@ -1,0 +1,39 @@
+{
+  "config": {
+    "volume_base_path": "/mnt/data/appdata",
+    "docker_compose_path": "/mnt/data/apps"
+  },
+  "apps": {
+    "traefik": {
+      "folder": "docker-compose/traefik",
+      "variables": {
+        "CF_DNS_API_TOKEN": "Your Cloudflare API token",
+        "CF_CERTIFICATE_EMAIL": "Your email for certificate registration"
+      }
+    },
+    "portainer": {
+      "folder": "docker-compose/portainer",
+      "variables": {}
+    },
+    "ollama-open-webui": {
+      "folder": "docker-compose/ollama-open-webui",
+      "variables": {}
+    },
+    "homer": {
+      "folder": "docker-compose/homer",
+      "variables": {}
+    },
+    "factorio-server-manager": {
+      "folder": "docker-compose/factorio-server-manager",
+      "variables": {}
+    },
+    "n8n": {
+      "folder": "docker-compose/n8n",
+      "variables": {
+        "DOMAIN_NAME": "Domain name for n8n",
+        "SUBDOMAIN": "Your subdomain for n8n",
+        "GENERIC_TIMEZONE": "Time Zone for the container"
+      }
+    }
+  }
+}

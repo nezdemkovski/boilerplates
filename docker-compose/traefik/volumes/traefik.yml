@@ -6,18 +6,23 @@ global:
 api:
   dashboard: true
   disableDashboardAd: true
-  insecure: true
+  insecure: false
 
 entryPoints:
   web:
     address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
   websecure:
     address: :443
 
 certificatesResolvers:
   cloudflare:
     acme:
-      email: yuri@nezdemkovski.com
+      email: ${CF_CERTIFICATE_EMAIL}
       storage: /var/traefik/certs/cloudflare-acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       dnsChallenge:
@@ -32,3 +37,6 @@ providers:
   file:
     directory: /etc/traefik
     watch: true
+
+experimental:
+  fastProxy: {}
