@@ -15,12 +15,17 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.homer.rule=Host(`nezdemkovski.cloud`) && PathPrefix(`/`)
-      - traefik.http.routers.homer.entrypoints=websecure
-      - traefik.http.routers.homer.service=homer
-      - traefik.http.routers.homer.tls=true
-      - traefik.http.routers.homer.tls.certresolver=cloudflare
-      - traefik.http.services.homer.loadbalancer.server.port=8080
+      # Internet Domain Configuration
+      - traefik.http.routers.homer-external.rule=Host(`nezdemkovski.cloud`) && PathPrefix(`/`)
+      - traefik.http.routers.homer-external.entrypoints=websecure
+      - traefik.http.routers.homer-external.tls=true
+      - traefik.http.routers.homer-external.tls.certresolver=cloudflare
+      # Local Network Domain Configuration
+      - traefik.http.routers.homer-internal.rule=Host(`home.lab`) && PathPrefix(`/`)
+      - traefik.http.routers.homer-internal.entrypoints=websecure
+      - traefik.http.routers.homer-internal.tls=true
+      # Common Service Configuration
+      - traefik.http.services.homer.loadbalancer.server.port=3001
 networks:
   proxy:
     external: true

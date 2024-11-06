@@ -1,12 +1,18 @@
 http:
   routers:
-    factorio:
+    factorio-internal:
       rule: "Host(`factorio.nezdemkovski.cloud`) && PathPrefix(`/`)"
       service: factorio
       entryPoints:
         - websecure
       tls:
         certResolver: cloudflare
+
+    factorio-external:
+      rule: "Host(`factorio.home.lab`) && PathPrefix(`/`)"
+      service: factorio
+      entryPoints:
+        - websecure
   services:
     factorio:
       loadBalancer:

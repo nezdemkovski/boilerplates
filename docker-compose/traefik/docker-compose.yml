@@ -16,6 +16,7 @@ services:
       - ${VOLUME_BASE_PATH}/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
       - ${VOLUME_BASE_PATH}/traefik/conf.d/:/etc/traefik/conf.d/:ro
       - ${VOLUME_BASE_PATH}/traefik/data/certs/:/var/traefik/certs/:rw
+      - ${VOLUME_BASE_PATH}/traefik/local-certs/:/var/traefik/local-certs/:ro
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN} # When using Cloudflare as Cert Resolver
 networks:

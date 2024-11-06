@@ -16,11 +16,16 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.portainer.rule=Host(`portainer.nezdemkovski.cloud`) && PathPrefix(`/`)
-      - traefik.http.routers.portainer.entrypoints=websecure
-      - traefik.http.routers.portainer.service=portainer
-      - traefik.http.routers.portainer.tls=true
-      - traefik.http.routers.portainer.tls.certresolver=cloudflare
+      # Internet Domain Configuration
+      - traefik.http.routers.portainer-external.rule=Host(`portainer.nezdemkovski.cloud`) && PathPrefix(`/`)
+      - traefik.http.routers.portainer-external.entrypoints=websecure
+      - traefik.http.routers.portainer-external.tls=true
+      - traefik.http.routers.portainer-external.tls.certresolver=cloudflare
+      # Local Network Domain Configuration
+      - traefik.http.routers.portainer-internal.rule=Host(`portainer.home.lab`) && PathPrefix(`/`)
+      - traefik.http.routers.portainer-internal.entrypoints=websecure
+      - traefik.http.routers.portainer-internal.tls=true
+      # Common Service Configuration
       - traefik.http.services.portainer.loadbalancer.server.port=9000
 volumes:
   portainer-data:

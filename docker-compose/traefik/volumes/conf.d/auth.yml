@@ -7,8 +7,6 @@ http:
       service: api@internal
       middlewares:
         - auth
-      tls:
-        certResolver: cloudflare
 
     dashboard-external:
       rule: "Host(`traefik.nezdemkovski.cloud`)"
