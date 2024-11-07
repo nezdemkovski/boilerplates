@@ -38,6 +38,12 @@
         "SUBDOMAIN": "Your subdomain for n8n",
         "GENERIC_TIMEZONE": "Time Zone for the container"
       }
+    },
+    "cloudflared": {
+      "folder": "docker-compose/cloudflared",
+      "variables": {
+        "CF_TUNNEL_TOKEN": "Your Cloudflare Tunnel token"
+      }
     }
   }
 }
