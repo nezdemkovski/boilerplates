@@ -44,6 +44,10 @@
       "variables": {
         "CF_TUNNEL_TOKEN": "Your Cloudflare Tunnel token"
       }
+    },
+    "bind9": {
+      "folder": "docker-compose/bind9",
+      "variables": {}
     }
   }
 }

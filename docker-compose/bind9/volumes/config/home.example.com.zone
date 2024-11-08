@@ -1,0 +1,24 @@
+$TTL 2d
+$ORIGIN home.example.com.
+
+@       IN      SOA     ns.home.example.com. hey.example.com. (
+                2024110800      ; serial
+                12h             ; refresh
+                15m             ; retry
+                3w              ; expire
+                2h              ; minimum ttl
+)
+
+                IN      NS      ns.home.example.com.
+
+ns              IN      A       192.168.x.xxx
+
+; -- prod servers
+
+prod-server-1          IN      A       192.168.x.xxx
+*.prod-server-1        IN      A       192.168.x.xxx
+
+; -- test servers
+
+test-server-1          IN      A       192.168.x.xxx
+*.test-server-1        IN      A       192.168.x.xxx
