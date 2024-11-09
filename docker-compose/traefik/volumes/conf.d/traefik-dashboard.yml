@@ -1,15 +1,7 @@
 http:
   routers:
-    dashboard-local:
-      rule: "Host(`traefik.home.lab`)"
-      entryPoints:
-        - websecure
-      service: api@internal
-      middlewares:
-        - auth
-
-    dashboard-external:
-      rule: "Host(`traefik.nezdemkovski.cloud`)"
+    traefik-dashboard:
+      rule: "Host(`traefik.nezdemkovski.cloud`) || Host(`traefik.helios.home.nezdemkovski.cloud`)"
       entryPoints:
         - websecure
       service: api@internal

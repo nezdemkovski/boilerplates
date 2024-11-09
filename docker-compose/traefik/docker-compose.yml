@@ -6,7 +6,7 @@ services:
     pull_policy: always
     restart: always
     networks:
-      - proxy
+      - traefik-proxy
     ports:
       - "80:80"
       - "443:443"
@@ -20,5 +20,5 @@ services:
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN} # When using Cloudflare as Cert Resolver
 networks:
-  proxy:
+  traefik-proxy:
     external: true

@@ -8,22 +8,16 @@ services:
     ports:
       - 30015:3001
     networks:
-      - proxy
+      - traefik-proxy
     volumes:
       - ${VOLUME_BASE_PATH}/uptime-kuma:/app/data
     labels:
       - traefik.enable=true
-      # Internet Domain Configuration
-      - traefik.http.routers.uptime-kuma-external.rule=Host(`uptime-kuma.nezdemkovski.cloud`) && PathPrefix(`/`)
-      - traefik.http.routers.uptime-kuma-external.entrypoints=websecure
-      - traefik.http.routers.uptime-kuma-external.tls=true
-      - traefik.http.routers.uptime-kuma-external.tls.certresolver=cloudflare
-      # Local Network Domain Configuration
-      - traefik.http.routers.uptime-kuma-internal.rule=Host(`uptime-kuma.home.lab`) && PathPrefix(`/`)
-      - traefik.http.routers.uptime-kuma-internal.entrypoints=websecure
-      - traefik.http.routers.uptime-kuma-internal.tls=true
-      # Common Service Configuration
+      - traefik.http.routers.uptime-kuma.rule=Host(`uptime-kuma.nezdemkovski.cloud`) || Host(`uptime-kuma.helios.home.nezdemkovski.cloud`)
+      - traefik.http.routers.uptime-kuma.entrypoints=websecure
+      - traefik.http.routers.uptime-kuma.tls=true
+      - traefik.http.routers.uptime-kuma.tls.certresolver=cloudflare
       - traefik.http.services.uptime-kuma.loadbalancer.server.port=3001
 networks:
-  proxy:
+  traefik-proxy:
     external: true

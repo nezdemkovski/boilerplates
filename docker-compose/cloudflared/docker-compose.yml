@@ -5,11 +5,12 @@ services:
     container_name: cloudflared
     restart: unless-stopped
     command: tunnel run
+    networks:
+      - traefik-proxy
     environment:
       - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN}
     volumes:
       - ${VOLUME_BASE_PATH}/cloudflared:/etc/cloudflared
 networks:
-  default:
-    external:
-      name: proxy 
+  traefik-proxy:
+    external: true

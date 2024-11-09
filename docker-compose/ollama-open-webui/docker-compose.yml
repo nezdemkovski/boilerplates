@@ -16,7 +16,7 @@ services:
     container_name: open-webui
     pull_policy: always
     networks:
-      - proxy
+      - traefik-proxy
     build:
       context: .
       args:
@@ -36,17 +36,11 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      # Internet Domain Configuration
-      - traefik.http.routers.openwebui-external.rule=Host(`ai.nezdemkovski.cloud`) && PathPrefix(`/`)
-      - traefik.http.routers.openwebui-external.entrypoints=websecure
-      - traefik.http.routers.openwebui-external.tls=true
-      - traefik.http.routers.openwebui-external.tls.certresolver=cloudflare
-      # Local Network Domain Configuration
-      - traefik.http.routers.openwebui-internal.rule=Host(`ai.home.lab`) && PathPrefix(`/`)
-      - traefik.http.routers.openwebui-internal.entrypoints=websecure
-      - traefik.http.routers.openwebui-internal.tls=true
-      # Common Service Configuration
+      - traefik.http.routers.openwebui.rule=Host(`ai.nezdemkovski.cloud`) || Host(`ai.helios.home.nezdemkovski.cloud`)
+      - traefik.http.routers.openwebui.entrypoints=websecure
+      - traefik.http.routers.openwebui.tls=true
+      - traefik.http.routers.openwebui.tls.certresolver=cloudflare
       - traefik.http.services.openwebui.loadbalancer.server.port=8080
 networks:
-  proxy:
+  traefik-proxy:
     external: true
